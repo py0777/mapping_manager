@@ -1,0 +1,144 @@
+/*테이블맵핑기본*/
+create table TR001(
+TO_TAB        varchar2(20) NOT NULL,
+AS_TAB        varchar2(20) NOT NULL, 
+TO_TAB_NM     varchar2(50) ,
+AS_TAB_NM     varchar2(50) , 
+TO_OWNER      varchar2(20) ,
+AS_OWNER      varchar2(20) ,
+MAP_TYP_COD   varchar2(2)  ,
+MAP_OWNER     varchar2(20) ,
+CRE_USER_ID   varchar2(20) ,
+MOD_USER_ID   varchar2(20) ,
+CRE_DATE      varchar2(14) ,
+MOD_DATE      varchar2(14) 
+);
+ALTER TABLE TR001 DROP PRIMARY KEY;
+ALTER TABLE TR001 ADD CONSTRAINT pk_TR001 PRIMARY KEY (TO_TAB,AS_TAB);
+
+comment on table TR001 is '테이블맵핑기본';
+comment on column TR001.TO_TAB        is 'TOBE테이블명';
+comment on column TR001.AS_TAB        is 'ASIS테이블명';
+comment on column TR001.TO_TAB_NM     is 'TOBE테이블한글명';
+comment on column TR001.AS_TAB_NM     is 'ASIS테이블한글명';
+comment on column TR001.TO_OWNER      is 'TOBE영역';
+comment on column TR001.AS_OWNER      is 'ASIS영역';
+comment on column TR001.MAP_TYP_COD   is '맵핑유형코드';
+comment on column TR001.MAP_OWNER     is '맵핑담당자';
+comment on column TR001.CRE_USER_ID   is '생성자ID';
+comment on column TR001.MOD_USER_ID   is '수정자ID';
+comment on column TR001.CRE_DATE      is '생성일시';
+comment on column TR001.MOD_DATE      is '수정일시';
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON TR001 TO py0777;
+
+/*코드맵핑기본*/
+create table TR002(
+TO_COD        varchar2(20) NOT NULL,
+AS_COD        varchar2(20) NOT NULL, 
+TO_COD_NM     varchar2(50) ,
+TO_COD_VAL    varchar2(20) ,
+TO_COD_VAL_NM varchar2(50) ,
+TO_COD_TYPE   varchar2(20) ,
+TO_COD_LEN    NUMBER(5) ,
+AS_COD_NM     varchar2(50) ,
+AS_COD_VAL    varchar2(20) ,
+AS_COD_VAL_NM varchar2(50) ,
+AS_COD_TYPE   varchar2(20) ,
+AS_COD_LEN    NUMBER(5) ,
+CRE_USER_ID   varchar2(20) ,
+MOD_USER_ID   varchar2(20) ,
+CRE_DATE      varchar2(14) ,
+MOD_DATE      varchar2(14) 
+);
+ALTER TABLE TR002 DROP PRIMARY KEY;
+ALTER TABLE TR002 ADD CONSTRAINT pk_TR002 PRIMARY KEY (TO_COD,AS_COD);
+
+
+comment on table  TR002 is '코드맵핑기본';
+comment on column TR002.TO_COD          is 'TOBE코드';
+comment on column TR002.AS_COD          is 'ASIS코드';
+comment on column TR002.TO_COD_NM       is 'TOBE코드한글명';
+comment on column TR002.TO_COD_VAL      is 'TOBE코드유효값';
+comment on column TR002.TO_COD_VAL_NM   is 'TOBE코드유효값명';
+comment on column TR002.TO_COD_TYPE     is 'TOBE코드TYPE';
+comment on column TR002.TO_COD_LEN      is 'TOBE코드길이';
+comment on column TR002.AS_COD_NM       is 'ASIS코드한글명';
+comment on column TR002.AS_COD_VAL      is 'ASIS코드유효값';
+comment on column TR002.AS_COD_VAL_NM   is 'ASIS코드유효값명';
+comment on column TR002.AS_COD_TYPE     is 'ASIS코드TYPE';
+comment on column TR002.AS_COD_LEN      is 'ASIS코드길이';
+comment on column TR002.CRE_USER_ID     is '생성자ID';
+comment on column TR002.MOD_USER_ID     is '수정자ID';
+comment on column TR002.CRE_DATE        is '생성일시';
+comment on column TR002.MOD_DATE        is '수정일시';
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON TR002 TO py0777;
+
+DROP TABLE TR003;
+/*컬럼맵핑기본*/
+create table TR003(
+SEQ           NUMBER(9)    NOT NULL,
+TO_TAB        varchar2(20) NOT NULL,
+TO_NO         NUMBER(9)    NOT NULL,
+TO_COL        varchar2(20),
+TO_COL_NM     varchar2(20),
+TO_COL_TYPE   varchar2(20),
+TO_COL_LEN    NUMBER(5) ,
+TO_COL_SCALE  varchar2(20),
+TO_COL_PK_YN      CHAR(1)  DEFAULT 'N',
+TO_COL_NULL_YN    CHAR(1)  DEFAULT 'Y',
+TO_NEW_YN     CHAR(1)  DEFAULT 'N',
+AS_TAB        varchar2(20) ,
+AS_COL        varchar2(20),
+AS_COL_NM     varchar2(20),
+AS_COL_TYPE   varchar2(20),
+AS_COL_LEN    NUMBER(5) ,
+AS_COL_SCALE  varchar2(20),
+AS_COL_PK_YN      CHAR(1)  DEFAULT 'N',
+AS_COL_NULL_YN    CHAR(1)  DEFAULT 'Y',
+TR_TYP_COD    varchar2(5),
+TR_RULE       varchar2(2000),
+CTNT          varchar2(2000),
+CRE_USER_ID   varchar2(20) ,
+MOD_USER_ID   varchar2(20) ,
+CRE_DATE      varchar2(14) ,
+MOD_DATE      varchar2(14) 
+);
+
+
+ALTER TABLE TR003 DROP PRIMARY KEY;
+ALTER TABLE TR003 ADD CONSTRAINT pk_TR003 PRIMARY KEY (SEQ);
+
+comment on table  TR003 is '컬럼맵핑기본';
+comment on column TR003.SEQ            is '일련번호';
+comment on column TR003.TO_TAB         is 'TOBE테이블명';
+comment on column TR003.TO_NO          is 'TOBE순번';
+comment on column TR003.TO_COL         is 'TOBE컬럼명';
+comment on column TR003.TO_COL_NM      is 'TOBE컬럼한글명';
+comment on column TR003.TO_COL_TYPE    is 'TOBE컬럼TYPE';
+comment on column TR003.TO_COL_LEN     is 'TOBE컬럼길이';
+comment on column TR003.TO_COL_SCALE   is 'TOBE컬럼SCALE';
+comment on column TR003.TO_COL_PK_YN   is 'TOBE컬럼PK여부';
+comment on column TR003.TO_COL_NULL_YN is 'TOBE컬럼NULL여부';
+comment on column TR003.TO_NEW_YN      is 'TOBE신규여부';
+comment on column TR003.AS_TAB         is 'ASIS컬럼코드길이';
+comment on column TR003.AS_COL         is 'ASIS컬럼명';
+comment on column TR003.AS_COL_NM      is 'ASIS컬럼한글명';
+comment on column TR003.AS_COL_TYPE    is 'ASIS컬럼유형';
+comment on column TR003.AS_COL_LEN     is 'ASIS컬럼길이';
+comment on column TR003.AS_COL_SCALE   is 'ASIS컬럼SCALE';
+comment on column TR003.AS_COL_PK_YN   is 'ASIS컬럼PK여부';
+comment on column TR003.AS_COL_NULL_YN is 'ASIS컬럼NULL여부';
+comment on column TR003.TR_TYP_COD     is '변환유형코드';
+comment on column TR003.TR_RULE        is '변환규칙';
+comment on column TR003.CTNT           is '비고';
+comment on column TR003.CRE_USER_ID    is '생성자ID';
+comment on column TR003.MOD_USER_ID    is '수정자ID';
+comment on column TR003.CRE_DATE       is '생성일시';
+comment on column TR003.MOD_DATE       is '수정일시';
+
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON TR003 TO py0777;
+/*sequence 생성*/
+CREATE SEQUENCE  "PY0777"."TR003_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER  NOCYCLE ;
