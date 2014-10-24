@@ -1,0 +1,23 @@
+개발환경 설정
+2014.10.17
+1. eclipse 설치 : 자바웹 개발 워크북 참고
+
+2. jdk 설치 및 환경변수 설정:
+
+3. tomcat설치
+   -환경변수설정( http://nonon.tistory.com/54)
+3. oracle11g express 설치:
+   - py0777/ speed011, sys/P@ssw0rd   
+
+4. github와 연결
+   - http://blog.beany.co.kr/archives/3407 참고
+   -저장소 위치: https://github.com/py0777/mapping_manager.git
+5. eclipse와 oracle 연결: http://thinkingblog.tistory.com/100
+  - odbc6 다운로드
+  - sqldevelopment 설치
+
+6.  mybatis와 jsp연결
+  -마이바티스프로그래밍 도서 참조
+
+
+7. jstl 태그 라이브러리 다운로드(page 354 http://tomcat.apache.org/download-taglibs.cgi)
