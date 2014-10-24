@@ -7,7 +7,7 @@
 3. tomcat설치
    -환경변수설정( http://nonon.tistory.com/54)
 3. oracle11g express 설치:
-   - py0777/ speed011, sys/P@ssw0rd   
+   - id/pw 설정   
 
 4. github와 연결
    - http://blog.beany.co.kr/archives/3407 참고
