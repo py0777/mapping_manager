@@ -8,7 +8,7 @@
 	<!--properties url="file:d:\mybatis.properties"-->
 	  <property name="jdbc.driver" value="oracle.jdbc.driver.OracleDriver"/>
 	  <property name="jdbc.username" value="py0777"/>
-	  <property name="jdbc.password" value="speed011"/>
+	  <property name="jdbc.password" value="py0777"/>
 	</properties>
 
 	<!-- 마이바티스의 작동 규칙정의 -->
