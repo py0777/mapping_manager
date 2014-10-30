@@ -25,8 +25,8 @@
 		      ,표_컬럼영문명 AS ACOL
 		      ,표_컬럼한글명 AS ACOLNM
 		  FROM 표준화정의서
-		 WHERE 테이블영문명 IN ($KEY_LIST$)
-		   and 컬럼영문명 NOT IN (SELECT KEYWORD FROM "쿼리변환temp")
+		 WHERE 테이블영문명 IN (#{KEY_LIST})
+		   /*and 컬럼영문명 NOT IN (SELECT KEYWORD FROM "쿼리변환temp")*/
 		ORDER BY LENGTH(표_컬럼영문명) DESC]]>
 	</select>
 	

@@ -19,22 +19,18 @@ import org.apache.log4j.Logger;
 
 public class SqlTranInq extends AbstractRepository {
 	static Logger logger = Logger.getLogger(SqlTranInq.class);
-	private final String namespace = "ldg.mybatis.repository.mapper.CommentMapperResultMap";
+	private final String namespace = "mm.repository.mapper.SqlTranInqMapper";
 	
 	
 	public IDataSet s001(IDataSet requestData) {
 		SqlSession sqlSession = getSqlSessionFactory().openSession();
 		try {
 			String statement = namespace + ".S001";
-			 //= sqlManager.selectXXX(aa.aa,aa,);
 			
 			IRecordSet rs = null;
-
-			
-//			ArrayList al = (ArrayList)sqlSession.selectList(statement, requestData.getFieldMap());
 			
 			RecordSetResultHandler resultHandler = new RecordSetResultHandler();
-			resultHandler.setRecordSetId("PWJ");
+			resultHandler.setRecordSetId("RS_TBLLIST");
 			sqlSession.select(statement, requestData.getFieldMap(), resultHandler);
 			
 			IDataSet ds = new DataSet();
@@ -51,9 +47,20 @@ public class SqlTranInq extends AbstractRepository {
 	public IDataSet s002(IDataSet requestData) {
 		SqlSession sqlSession = getSqlSessionFactory().openSession();
 		try {
-			String statement = namespace + ".S002";
-			return (IDataSet)sqlSession.selectList(statement, requestData.getFieldMap());
 			
+			String statement = namespace + ".S002";
+			
+			IRecordSet rs = null;
+			
+			RecordSetResultHandler resultHandler = new RecordSetResultHandler();
+			resultHandler.setRecordSetId("RS_COLLIST");
+			sqlSession.select(statement, requestData.getFieldMap(), resultHandler);
+			
+			IDataSet ds = new DataSet();
+			ds.putRecordSet(resultHandler.getRecordSet());
+			
+			logger.debug(ds);
+			return ds;
 		} finally {
 			sqlSession.close();
 		}
