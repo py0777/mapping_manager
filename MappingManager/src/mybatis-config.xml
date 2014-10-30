@@ -65,7 +65,8 @@
 	<!-- 매퍼정의 -->
 	<mappers>
 		<mapper resource="ldg/mybatis/repository/mapper/CommentMapper.xml" />
-		<mapper resource="ldg/mybatis/repository/mapper/CommentMapperResultMap.xml" />
+		<mapper resource="ldg/mybatis/repository/mapper/CommentMapperResultMap.xml" />		
 		<mapper resource="ldg/mybatis/repository/mapper/CommentMapperDynamicSql.xml" />
+		<mapper resource="mm/repository/mapper/SqlTranInqMapper.xml" />
 	</mappers>
 </configuration>
