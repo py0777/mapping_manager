@@ -19,7 +19,8 @@
 		<setting name="autoMappingBehavior" value="PARTIAL" />
 	</settings>
 	
-	<!-- 타입별칭 -->
+	<!-- 타입별칭 
+	객체 만들면 사용해야지
 	<typeAliases>
 		<typeAlias type="ldg.mybatis.model.Comment" alias="Comment" />
 		<typeAlias type="ldg.mybatis.model.User" alias="User" />
@@ -27,7 +28,8 @@
 		<typeAlias type="ldg.mybatis.model.CommentUser" alias="CommentUser" />
 		<typeAlias type="ldg.mybatis.model.CommentReplies" alias="CommentReplies" />
 	</typeAliases>
-
+	-->
+	
 	<!-- 타입핸들러 -->
 	<!--typeHandlers>
 		<package name="ldg.mybatis.common.type"/>
@@ -35,7 +37,7 @@
 	
 	<!-- 플러그인 -->
 	<plugins>
-		<plugin interceptor="ldg.mybatis.common.plugin.ExecutorPlugin">
+		<plugin interceptor="mm.common.plugin.ExecutorPlugin">
 			<property name="property" value="plugin test"/>
 		</plugin>
 	</plugins>
@@ -64,9 +66,6 @@
 	
 	<!-- 매퍼정의 -->
 	<mappers>
-		<mapper resource="ldg/mybatis/repository/mapper/CommentMapper.xml" />
-		<mapper resource="ldg/mybatis/repository/mapper/CommentMapperResultMap.xml" />		
-		<mapper resource="ldg/mybatis/repository/mapper/CommentMapperDynamicSql.xml" />
 		<mapper resource="mm/repository/mapper/SqlTranInqMapper.xml" />
 	</mappers>
 </configuration>
