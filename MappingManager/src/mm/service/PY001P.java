@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 
-
 import mm.common.RecordSetResultHandler;
 import mm.repository.AbstractRepository;
 import nexcore.framework.core.data.DataSet;
@@ -16,8 +15,10 @@ import nexcore.framework.core.util.StringUtils;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
-import org.orasql.SQLBeautifier;
-public class SqlTranInq extends AbstractRepository {
+
+
+public class PY001P extends AbstractRepository {
+
 	static Logger logger = Logger.getLogger(SqlTranInq.class);
 	private final String namespace = "mm.repository.mapper.SqlTranInqMapper";
 	
@@ -49,6 +50,8 @@ public class SqlTranInq extends AbstractRepository {
 		try {
 			
 			String statement = namespace + ".S002";
+			
+			IRecordSet rs = null;
 			
 			RecordSetResultHandler resultHandler = new RecordSetResultHandler();
 			resultHandler.setRecordSetId("RS_COLLIST");
@@ -123,8 +126,6 @@ public class SqlTranInq extends AbstractRepository {
 				}
 			}
 			
-			logger.debug(tblMap);
-			
 			StringBuffer keySB = new StringBuffer();
 			Set<String> tblSet = tblMap.keySet();
 			Iterator<String> it = tblSet.iterator();
@@ -145,8 +146,6 @@ public class SqlTranInq extends AbstractRepository {
 			dsCol = s002(requestData);
 			rsCol = dsCol.getRecordSet("RS_COLLIST");
 			
-			logger.debug("=========================");
-			logger.debug(rsCol);
 			for(int j=0; j<rsCol.getRecordCount(); j++){
 				if(tblMap.containsKey(rsCol.getRecord(j).get("TBL"))){
 					key = rsCol.getRecord(j).get("COL").trim();
@@ -166,9 +165,7 @@ public class SqlTranInq extends AbstractRepository {
 			for(int u=0; u<tmp.length; u++){
 				sb.append(tmp[u]);
 			}
-			SQLBeautifier sbf = new SQLBeautifier();
-			logger.debug("###########################");
-			logger.debug(sbf.beautify(sb.toString()));
+
 			responseData.putField("QUERY", "");
 			responseData.putField("RESULT", sb.toString());
 			responseData.putRecordSet(rsRtn);
@@ -188,18 +185,22 @@ public class SqlTranInq extends AbstractRepository {
 		IDataSet responseData = null;
 		SqlTranInq sti= new SqlTranInq();
 		String sql = null;
-		sql = "UPDATE AC.TRMPAYM, DD.TCMBTRT   SET CLCUSR_NUM  = T_AUTO_IVST_TNB_CD,      CLCBRC_COD  = T_AUTO_IVST_AST_CD,"
-				+ "       CLCBRC_COD1  = T_AUTO_IVST_AST_CD,"
-				+ "       MRVBRC_COD = T_AUTO_IVST_ACCT_NO,"
-				+ "       PATMT_MTHCOD      = T_CMA_TYPE_GBN,"
-				+ "       PAYMY_CNT    = SYSDATE,"
-				+ "       DLMN_ENO      = '원카드',"
-				+ "       PAYMT_CNT     = BLNG_TNB_CD,"
-				+ "       PAYMT_DTE    = T_DL_TERM_NO"
-				+ " WHERE TRANS_COD    = C1.TNB_CD"
-				+ "   AND OPTBRC_COD   = C1.AST_CD"
-				+ "   AND WOORI_COD    = C1.ACCT_NO;"
-				;
+		sql = "SELECT A.ROWID AAT070_ROWID, B.ROWID AAT010_ROWID"
+		                
+						+ ", A.TNB_CD, A.AST_CD, A.ACCT_NO     "
+		                + ", A.REGDT, A.BASE_IVST_AST          "
+		                + ", A.BF_IVST_DT, A.BF_IVST_AST       "
+		                + ", B.PRAC                            "
+		                + ", B.CMA_TYPE_GBN, B.CMA_TYPE_GBN2   "
+		                + ", B.AUTO_IVST_TNB_CD, B.AUTO_IVST_AST_CD, B.AUTO_IVST_ACCT_NO"
+		           +"  FROM AA.AAT070 as A  "
+		           +"     , AA.AAT010 as B"
+		           +"     , AA.AAT010 as C"
+		           +" WHERE B.TNB_CD = A.TNB_CD"
+		           +"   AND B.AST_CD = A.AST_CD   "
+		           +"   AND B.ACCT_NO = A.ACCT_NO "
+		           +"   AND B.CMA_TYPE_GBN2 = '9' "
+		           +"   AND A.REG_ABAN_GBN = '1' ";
 		requestData.putField("QUERY", sql);
 		responseData	=	sti.asSqlTrnInq(requestData);
 		
@@ -207,4 +208,5 @@ public class SqlTranInq extends AbstractRepository {
 		logger.debug("########### end main  #########");
 		
 	}
+
 }

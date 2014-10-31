@@ -1,4 +1,4 @@
-package mm.service;
+package mm.common;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -16,6 +16,10 @@ public class RecordSetResultHandler implements ResultHandler {
 	private String recordSetId = "S1";
 	private String[] headerNm;
 
+	public RecordSetResultHandler() {
+		
+	}
+	
 	public String getRecordSetId() {
 		return recordSetId;
 	}

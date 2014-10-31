@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mm.repository.mapper.PY001M">
+
+	<select id="S001" parameterType="map" resultType="java.util.HashMap" fetchSize="50" ><![CDATA[
+		/* IO:mm.repository.mapper.PY001M.S001 */
+		select distinct
+		       테이블영문명 as Tbl
+		      ,테이블한글명 as TblNm
+		      ,표_테이블영문명 as ATbl
+		      ,표_테이블한글명 as ATblNm
+		  from 표준화정의서]]>
+	</select>
+	
+	<select id="S002" parameterType="map" resultType="java.util.HashMap" fetchSize="50" ><![CDATA[/* Biz: author_홍사범(홍사범) */
+		/* IO:mm.repository.mapper.PY001M.S002 */
+		SELECT 테이블영문명 AS TBL
+		      ,테이블한글명 AS TBLNM
+		      ,컬럼영문명 AS COL
+		      ,컬럼한글명 AS COLNM
+		      ,표_테이블영문명 AS ATBL
+		      ,표_테이블한글명 AS ATBLNM
+		      ,표_컬럼영문명 AS ACOL
+		      ,표_컬럼한글명 AS ACOLNM
+		  FROM 표준화정의서
+		 WHERE 테이블영문명 IN (#{KEY_LIST})
+		   /*and 컬럼영문명 NOT IN (SELECT KEYWORD FROM "쿼리변환temp")*/
+		ORDER BY LENGTH(표_컬럼영문명) DESC]]>
+	</select>
+	
+</mapper>
