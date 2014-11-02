@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 
+
 import mm.common.RecordSetResultHandler;
 import mm.repository.AbstractRepository;
 import nexcore.framework.core.data.DataSet;
@@ -17,6 +18,7 @@ import nexcore.framework.core.util.StringUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 import org.orasql.SQLBeautifier;
+
 public class SqlTranInq extends AbstractRepository {
 	static Logger logger = Logger.getLogger(SqlTranInq.class);
 	private final String namespace = "mm.repository.mapper.SqlTranInqMapper";
@@ -67,6 +69,7 @@ public class SqlTranInq extends AbstractRepository {
 	public IDataSet asSqlTrnInq(IDataSet requestData){
 		
 		logger.debug("###########  START #########");
+		logger.debug(getClass().getName());
 		
 		logger.debug(requestData.getField("QUERY"));
 		IDataSet responseData = new DataSet();
@@ -167,10 +170,9 @@ public class SqlTranInq extends AbstractRepository {
 				sb.append(tmp[u]);
 			}
 			SQLBeautifier sbf = new SQLBeautifier();
-			logger.debug("###########################");
-			logger.debug(sbf.beautify(sb.toString()));
+			
 			responseData.putField("QUERY", "");
-			responseData.putField("RESULT", sb.toString());
+			responseData.putField("RESULT", sbf.beautify(sb.toString()));
 			responseData.putRecordSet(rsRtn);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -180,31 +182,31 @@ public class SqlTranInq extends AbstractRepository {
 		return responseData;
 	}
 	
-	public static void main(String[] args) throws Exception{
-		
-		logger.debug("########### start main #########");
-		
-		IDataSet requestData = new DataSet();
-		IDataSet responseData = null;
-		SqlTranInq sti= new SqlTranInq();
-		String sql = null;
-		sql = "UPDATE AC.TRMPAYM, DD.TCMBTRT   SET CLCUSR_NUM  = T_AUTO_IVST_TNB_CD,      CLCBRC_COD  = T_AUTO_IVST_AST_CD,"
-				+ "       CLCBRC_COD1  = T_AUTO_IVST_AST_CD,"
-				+ "       MRVBRC_COD = T_AUTO_IVST_ACCT_NO,"
-				+ "       PATMT_MTHCOD      = T_CMA_TYPE_GBN,"
-				+ "       PAYMY_CNT    = SYSDATE,"
-				+ "       DLMN_ENO      = '원카드',"
-				+ "       PAYMT_CNT     = BLNG_TNB_CD,"
-				+ "       PAYMT_DTE    = T_DL_TERM_NO"
-				+ " WHERE TRANS_COD    = C1.TNB_CD"
-				+ "   AND OPTBRC_COD   = C1.AST_CD"
-				+ "   AND WOORI_COD    = C1.ACCT_NO;"
-				;
-		requestData.putField("QUERY", sql);
-		responseData	=	sti.asSqlTrnInq(requestData);
-		
-		logger.debug(responseData);
-		logger.debug("########### end main  #########");
-		
-	}
+//	public static void main(String[] args) throws Exception{
+//		
+//		logger.debug("########### start main #########");
+//		
+//		IDataSet requestData = new DataSet();
+//		IDataSet responseData = null;
+//		SqlTranInq sti= new SqlTranInq();
+//		String sql = null;
+//		sql = "UPDATE AC.TRMPAYM, DD.TCMBTRT   SET CLCUSR_NUM  = T_AUTO_IVST_TNB_CD,      CLCBRC_COD  = T_AUTO_IVST_AST_CD,"
+//				+ "       CLCBRC_COD1  = T_AUTO_IVST_AST_CD,"
+//				+ "       MRVBRC_COD = T_AUTO_IVST_ACCT_NO,"
+//				+ "       PATMT_MTHCOD      = T_CMA_TYPE_GBN,"
+//				+ "       PAYMY_CNT    = SYSDATE,"
+//				+ "       DLMN_ENO      = '원카드',"
+//				+ "       PAYMT_CNT     = BLNG_TNB_CD,"
+//				+ "       PAYMT_DTE    = T_DL_TERM_NO"
+//				+ " WHERE TRANS_COD    = C1.TNB_CD"
+//				+ "   AND OPTBRC_COD   = C1.AST_CD"
+//				+ "   AND WOORI_COD    = C1.ACCT_NO;"
+//				;
+//		requestData.putField("QUERY", sql);
+//		responseData	=	sti.asSqlTrnInq(requestData);
+//		
+//		logger.debug(responseData);
+//		logger.debug("########### end main  #########");
+//		
+//	}
 }
