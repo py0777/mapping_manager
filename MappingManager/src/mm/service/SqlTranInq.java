@@ -43,8 +43,12 @@ public class SqlTranInq extends AbstractRepository {
 			return ds;
 		} finally {
 			sqlSession.close();
+			/*test*/
 		}
 	}
+	
+	
+	
 	
 	public IDataSet s002(IDataSet requestData) {
 		SqlSession sqlSession = getSqlSessionFactory().openSession();
@@ -195,7 +199,7 @@ public class SqlTranInq extends AbstractRepository {
 //				+ "       MRVBRC_COD = T_AUTO_IVST_ACCT_NO,"
 //				+ "       PATMT_MTHCOD      = T_CMA_TYPE_GBN,"
 //				+ "       PAYMY_CNT    = SYSDATE,"
-//				+ "       DLMN_ENO      = '원카드',"
+//				+ "       DLMN_ENO      = '��移대��',"
 //				+ "       PAYMT_CNT     = BLNG_TNB_CD,"
 //				+ "       PAYMT_DTE    = T_DL_TERM_NO"
 //				+ " WHERE TRANS_COD    = C1.TNB_CD"
