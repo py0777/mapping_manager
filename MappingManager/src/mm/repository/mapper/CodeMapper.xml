@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mm.repository.mapper.CodeMapper">
+
+	<select id="S001" parameterType="map" resultType="java.util.HashMap" ><![CDATA[
+
+SELECT NO           순번,
+       WORK_NAME    업무영역,
+       B.T_ENG_COLUMN_NAME AS TOBE영문코드명,
+       NVL(T_CODE_NAME,'NULL')  TOBE코드명, 
+       NVL(T_CODE_CD, 'NULL ')    TOBE코드값, 
+       NVL(T_CMT,'NULL')        TOBE설명, 
+       NVL(T_REMARK,'NULL')     TOBE비고, 
+       NVL(A_KCODE_NAME,'NULL') ASIS한글컬럼명, 
+       NVL(A_ECODE_NAME,'NULL') ASIS영문컬럼명, 
+       NVL(A_CODE_CD,'NULL')    ASIS코드값, 
+       NVL(A_CMT,'NULL')     ASIS설명, 
+       NVL(A_REMARK,'NULL')     ASIS비고, 
+	       업무담당자, 
+	       고객담당자, 
+	       이행담당자
+ FROM MIGADM.META_CODE_MAP  A
+    , ( SELECT DISTINCT T_ENG_COLUMN_NAME,T_KOR_COLUMN_NAME  
+          FROM MIGADM.META_TABLE_MAP   )  B
+WHERE A.T_CODE_NAME = B.T_KOR_COLUMN_NAME
+ AND  ((   ( '1' = '${INQ_CON}' AND B.T_ENG_COLUMN_NAME LIKE '%'||'${INPUT}'||'%'))          
+       OR  ('2' = '${INQ_CON}' AND (T_CODE_NAME LIKE '%'||'${INPUT}'||'%'))
+       OR  ('3' = '${INQ_CON}' AND (A_ECODE_NAME LIKE '%'||'${INPUT}'||'%'))
+       OR  ('4' = '${INQ_CON}' AND (A_KCODE_NAME LIKE '%'||'${INPUT}'||'%'))
+       )
+]]>
+	</select>
+</mapper>

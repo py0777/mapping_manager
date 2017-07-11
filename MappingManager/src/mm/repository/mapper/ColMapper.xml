@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mm.repository.mapper.ColMapper">
+
+	<select id="S001" parameterType="map" resultType="java.util.HashMap" fetchSize="1000" ><![CDATA[		
+SELECT *
+  FROM (
+SELECT TO_NUMBER(MAP_SORT)      
+      , MAP_ID                   
+      , NVL(T_ENG_TABLE_NAME   ,'NULL')      AS T_ENG_TABLE_NAME  
+      , NVL(T_KOR_TABLE_NAME   ,'NULL')      AS T_KOR_TABLE_NAME  
+      , NVL(T_ENG_COLUMN_NAME  ,'NULL')      AS T_ENG_COLUMN_NAME 
+      , NVL(T_KOR_COLUMN_NAME  ,'NULL')      AS T_KOR_COLUMN_NAME 
+      , NVL(T_DATA_TYPE        ,'NULL')      AS T_DATA_TYPE       
+      , NVL(T_LENGTH1          ,'NULL')      AS T_LENGTH1         
+      , NVL(T_LENGTH2          ,'NULL')      AS T_LENGTH2         
+      , NVL(T_PK               ,'NULL')      AS T_PK              
+      , NVL(A_SYSTEM_NAME      ,'NULL')      AS A_SYSTEM_NAME     
+      , NVL(A_OWNER            ,'NULL')      AS A_OWNER           
+      , NVL(A_ENG_TABLE_NAME   ,'NULL')      AS A_ENG_TABLE_NAME  
+      , NVL(A_KOR_TABLE_NAME   ,'NULL')      AS A_KOR_TABLE_NAME  
+      , NVL(A_ENG_COLUMN_NAME  ,'NULL')      AS A_ENG_COLUMN_NAME 
+      , NVL(A_KOR_COLUMN_NAME  ,'NULL')      AS A_KOR_COLUMN_NAME 
+      , NVL(A_DATA_TYPE        ,'NULL')      AS A_DATA_TYPE       
+      , NVL(A_LENGTH1          ,'NULL')      AS A_LENGTH1         
+      , NVL(A_LENGTH2          ,'NULL')      AS A_LENGTH2         
+      , NVL(A_PK               ,'NULL')      AS A_PK              
+      , NVL(MOVE_DEFAULT       ,'NULL')      AS MOVE_DEFAULT      
+      , NVL(MOVE_YN            ,'NULL')      AS MOVE_YN           
+      , NVL(MOVE_RULE          ,'NULL')      AS MOVE_RULE         
+      , NVL(MOVE_SQL           ,'NULL')      AS MOVE_SQL          
+      , NVL(ALT_EMP_NO         ,'NULL')      AS ALT_EMP_NO        
+      , NVL(PREE_CDTN          ,'NULL')      AS PREE_CDTN         
+      , NVL(ALT_DT             ,'NULL')      AS ALT_DT            
+      , NVL(업무담당자         ,'NULL')      AS 업무담당자        
+      , 고객담당자
+      , 이행담당자
+ FROM  MIGADM.META_TABLE_MAP
+ WHERE ( ('1' = '${INQ_CON}'
+                   AND T_ENG_TABLE_NAME = (
+                                               CASE
+                                                 WHEN '${IN_TBL}'='%' THEN T_ENG_TABLE_NAME
+                                                 ELSE '${IN_TBL}'
+                                               END)
+                   AND T_ENG_COLUMN_NAME = (
+                                               CASE
+                                                 WHEN '${IN_COL}'='%' THEN T_ENG_COLUMN_NAME
+                                                 ELSE '${IN_COL}'
+                                               END))
+            OR ('2' = '${INQ_CON}'
+                   AND A_ENG_TABLE_NAME = (
+                                               CASE
+                                                 WHEN '${IN_TBL}'='%' THEN A_ENG_TABLE_NAME
+                                                 ELSE '${IN_TBL}'
+                                               END)
+                   AND A_ENG_COLUMN_NAME = (
+                                               CASE
+                                                 WHEN '${IN_COL}'='%' THEN A_ENG_COLUMN_NAME
+                                                 ELSE '${IN_COL}'
+                                               END))) )  A
+ORDER BY 2, 1 
+]]>
+	</select>
+</mapper>
